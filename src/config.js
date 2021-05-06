@@ -8,7 +8,7 @@ const {PORT, HOST, HOST_URL, SQL_USER, SQL_PASSWORD, SQL_DATABASE, SQL_SERVER} =
 const sqlEncrypt = process.env.SQL_ENCRIPT === "true"
 
 module.exports = {
-    port: PORT || 8000,
+    port: PORT || 8080,
     host: HOST,
     url: HOST_URL,
 

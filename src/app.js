@@ -1,11 +1,20 @@
-const express = require ('express')
+//server
+const express = require('express')
 const cors = require('cors')
-const bodyParser = require ('body-parser')
-const config = require ('./config')
+const pkg = require('../package.json')
+const morgan = require('morgan')
 
 const app = express()
+
+//middlewares
 app.use(cors())
-app.use(bodyParser.json())
+app.set('pkg', pkg)
+app.use(express())
+app.use(morgan("dev"))
 
- module.exports = app
+//router
+app.use('/', (req, res) => {
+res.json("welcome")
+})
 
+module.exports = app

@@ -1,8 +1,9 @@
-const app  = require ('./app')
-const config  = require('./config')
-const express = require ('express')
+const app = require('./app')
+const config = require('./config')
 
-app.listen(config.port, () => {
-    console.log('server on port:' + config.port)
+const server = async () => {
+    await app.listen(config.port, () => {
+    console.log('server dashboard on port:' + config.port)
     })
-    
+}
+server()
