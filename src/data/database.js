@@ -1,4 +1,4 @@
-const sql = require('mssql')
+const sql = require('mssql');
 
 const dbSettings ={
      user:'superveci-dev',
@@ -9,13 +9,18 @@ const dbSettings ={
          encrypt: true,
          trustServerCertificate:true   
      }
+ };
+
+const getConnection = async () =>{
+    try {
+        const pool= await sql.connect(dbSettings);
+        // const result = await pool.request().query('SELECT * FROM users');
+        // console.log(result);
+        return pool;
+    } catch (error) {
+        console.error(error);
+        return undefined;
+    }
  }
-const getCoonection = async () =>{
-try {
-const pool= await sql.connect(dbSettings)
-return pool   
-} catch (error) {
-    console.error(error)
-}
- }
- getCoonection()
+
+module.exports = getConnection;
