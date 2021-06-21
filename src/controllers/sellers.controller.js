@@ -42,7 +42,7 @@ exports.zoneLeadersCreate = async (req, res) => {
         leader_code, 
         email,
         cellphone,
-        zone,
+        zone_id,
         endContractDate,
         documentPhoto,
         rutDocument,
@@ -82,6 +82,8 @@ exports.zoneLeadersCreate = async (req, res) => {
             .input("contract_image", sql.VarChar, contractDocument)
             .input("document_image", sql.VarChar, documentPhoto)
             .input("rut_image", sql.VarChar, rutDocument)
+            .input("email", sql.VarChar, email)
+            .input("zone_id", sql.Int, zone_id.toString())
             .input("bank_certification", sql.VarChar, bankCertification)
             .input("created_at", sql.Date, today)
             .input("updated_at", sql.Date, today)
@@ -106,7 +108,7 @@ exports.zoneLeaderEditById = async (req, res) => {
             leader_code, 
             email,
             cellphone,
-            zone,
+            zone_id,
             endContractDate,
             documentPhoto,
             rutDocument,
@@ -153,6 +155,8 @@ exports.zoneLeaderEditById = async (req, res) => {
             .input("document_image", sql.VarChar, documentPhoto)
             .input("rut_image", sql.VarChar, rutDocument)
             .input("bank_certification", sql.VarChar, bankCertification)
+            .input("email", sql.VarChar, email)
+            .input("zone_id", sql.Int, zone_id.toString())
             .input("updated_at", sql.Date, today)
             .query(updateZoneLeaderById);
 

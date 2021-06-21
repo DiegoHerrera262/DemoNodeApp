@@ -31,9 +31,8 @@ const zoneLeaderCreationValidation = {
             .max(9999999999)
             .min(999999999)
             .required(),
-        zone : Joi.string()
-            .regex(/^[a-zA-Z]{3,15}$/)
-            .required(),
+        zone_id : Joi.number()
+            .integer(),
         endContractDate : Joi.date()
             .greater('now')
             .required(),
@@ -67,8 +66,8 @@ const zoneLeaderUpdateValidation = {
         cellphone : Joi.number()
             .max(9999999999)
             .min(999999999),
-        zone : Joi.string()
-            .regex(/^[a-zA-Z]{3,15}$/),
+        zone_id : Joi.number()
+            .integer(),
         endContractDate : Joi.date()
             .greater('now'),
         documentPhoto : Joi.any(),

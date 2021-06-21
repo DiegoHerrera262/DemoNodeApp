@@ -7,6 +7,8 @@ const databaseColumnArray = [
     "status",
     "address",
     "image_url",
+    "email",
+    "zone_id",
     "seller_code",
     "seller_type",
     "contract_expires",
@@ -27,7 +29,7 @@ createQuery = createQuery + `) VALUES (@${databaseColumnArray[0]}`;
 for (let i = 1; i < databaseColumnArray.length; i++) {
     createQuery = createQuery + `, @${databaseColumnArray[i]}`;
 }
-createQuery = createQuery + ")";
+createQuery = createQuery + "); " + 'UPDATE sellers SET leader_id = id WHERE seller_type = 3 AND document = @document;';
 
 const databaseUpdateColumnArray = [
     "name",
@@ -38,6 +40,8 @@ const databaseUpdateColumnArray = [
     "status",
     "address",
     "image_url",
+    "email",
+    "zone_id",
     "seller_code",
     "seller_type",
     "contract_expires",
@@ -55,7 +59,7 @@ for (let i = 1; i < databaseUpdateColumnArray.length; i++) {
 updateQuery = updateQuery + " WHERE id = @id";
 
 // export validation queries
-exports.zoneLeaderValidationQuery = "SELECT document, id FROM sellers WHERE seller_type = 3 AND (document = @document OR cellphone = @cellphone OR seller_code = @seller_code)" 
+exports.zoneLeaderValidationQuery = "SELECT document, id FROM sellers WHERE (document = @document OR cellphone = @cellphone OR seller_code = @seller_code)" 
 exports.getAllZoneLeaders = "SELECT * FROM sellers WHERE seller_type = 3";
 exports.getZoneLeaderById = "SELECT * FROM sellers WHERE seller_type = 3 AND id = @id";
 exports.deleteZoneLeaderById = "DELETE FROM sellers WHERE seller_type = 3 AND id = @id";
