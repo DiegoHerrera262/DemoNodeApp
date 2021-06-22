@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const pkg = require('../package.json');
 const morgan = require('morgan');
-const { resolveMx } = require('node:dns');
 const app = express();
 
 // Seller routes
