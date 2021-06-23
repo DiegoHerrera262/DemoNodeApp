@@ -224,9 +224,44 @@ exports.zoneLeadersDelete = async (req, res) => {
     console.log('Deleting zone leader with id: ', id);
     try {
         const pool = await dataBase();
+
+        // delete block blobs from azure
+        const result = await pool.request()
+            .input("id", sql.Int, id)
+            .query(getZoneLeaderById);
+        
+        const {
+            contract_image,
+            document_image,
+            rut_image,
+            bank_certification,
+            image_url
+        } = result.recordset[0];
+
+        const fileBlobs = [
+            contract_image,
+            document_image,
+            rut_image,
+            bank_certification,
+            image_url
+        ]
+
+        console.log(fileBlobs)
+
+        fileBlobs.map(blobName => {
+            blobService.deleteBlobIfExists(containerName, blobName, err => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('Archivo borrado correctamente');
+            });
+        })
+        
         await pool.request()
             .input("id", sql.Int, id)
             .query(deleteZoneLeaderById);
+        
         res.json(`Deleted zone leader with ID : ${id}`);
     } catch (error) {
         res.status(500).send(error.message);

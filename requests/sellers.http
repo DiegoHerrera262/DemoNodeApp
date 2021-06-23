@@ -1,14 +1,14 @@
 ### Getting all leaders on sellers table
-GET http://localhost:8080/lideres
+GET http://localhost:8000/lideres
 
 ### Getting leader by id
-GET http://localhost:8080/lideres/22
+GET http://localhost:8000/lideres/38
 
 ### Deleting leader by id
-DELETE http://localhost:8080/lideres/6
+DELETE http://localhost:8000/lideres/54
 
 ### Updating zone leader by id
-PUT http://localhost:8080/lideres/25
+PUT http://localhost:8000/lideres/25
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
     "documentId": 400000000,
     "address": "Cra 89 #119-83",
     "leader_code": 497,
-    "email" : "somediffmail@mailserv.com",
+    "email" : "mail@mailserv.com",
     "cellphone": 3456778901,
     "zone_id": 2,
     "endContractDate": "2021-06-21",
@@ -33,15 +33,15 @@ POST http://localhost:8080/lideres
 Content-Type: application/json
 
 {
-    "name" : "Lider",
-    "last_name": "Siete",
-    "documentId": 2048597876,
-    "address": "CRA 180 # 187 - 10",
-    "leader_code": 570,
-    "email" : "another@mail.com",
-    "cellphone": 3111101171,
-    "zone": "Sur",
-    "endContractDate": "2021-08-14",
+    "name" : "Test",
+    "last_name": "Four",
+    "documentId": 3000000003,
+    "address": "Cra 40 #40-40",
+    "leader_code": 104,
+    "email" : "somem4@mailserv.com",
+    "cellphone": 3000000003,
+    "zone_id": 1,
+    "endContractDate": "2021-06-21",
     "documentPhoto": "https://AmazonWEB.com/Some/Random/url",
     "rutDocument": "https://AmazonWEB.com/Some/Random/url",
     "contractDocument": "https://AmazonWEB.com/Some/Random/url",
