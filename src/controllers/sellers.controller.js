@@ -1,5 +1,17 @@
+// Connection to azure database
 const dataBase = require('../data/database');
 const sql = require('mssql');
+const _ = require('underscore');
+
+// Connection to azure blob storage
+const config = require('../config');
+const azureStorage = require('azure-storage');
+const blobService = azureStorage.createBlobService();
+const containerName = 'sellers';
+// config stream for ease o use
+const getStream = require('into-stream');
+
+// queries to database
 const { 
     getAllZoneLeaders,
     getZoneLeaderById,
@@ -8,6 +20,9 @@ const {
     zoneLeaderValidationQuery, 
     createNewZoneLeader
 } = require('../data/sellers.queries');
+
+// max file size
+const MAX_SIZE = 5 * 1024 * 1024;
 
 exports.zoneLeadersGet = async (req, res) => {
     console.log('Viewing zone leaders.');
@@ -35,25 +50,61 @@ exports.zoneLeaderGetById = async (req, res) => {
 };
 
 exports.zoneLeadersCreate = async (req, res) => {
-    const {name, 
-        last_name, 
-        documentId, 
-        address, 
-        leader_code, 
-        email,
-        cellphone,
-        zone_id,
-        endContractDate,
-        documentPhoto,
-        rutDocument,
-        contractDocument,
-        profileImage,
-        bankCertification
-    } = req.body;
-
-    const today = new Date();
-
+    
     try {
+
+        const genBlobName = (originalName) => {
+            const identifier = Math.random().toString().replace(/0\./, '');
+            return `${identifier}-${originalName}`
+        }
+        
+        const {name, 
+            last_name, 
+            documentId, 
+            address, 
+            leader_code, 
+            email,
+            cellphone,
+            zone_id,
+            endContractDate
+        } = req.body;
+
+        let correctFileSizes = true;
+        for (let i = 0; i < req.files.length; i++){
+            correctFileSizes = correctFileSizes || req.files[i].size < MAX_SIZE;
+        }
+
+        if (!correctFileSizes) {
+            return res.status(406).send('Archivos exceden maximo tamano');
+        }
+
+        const fileBlobKeys = _.object(req.files.map((file, i) => {
+            const nameKeys = [
+                'contractDocument',
+                'documentPhoto',
+                'rutDocument',
+                'profileImage',
+                'bankCertification'
+            ];
+            const blobName = genBlobName(`${nameKeys[i]}-${name}-${last_name}`);
+            const stream = getStream(file.buffer);
+            const streamLength = file.buffer.length;
+
+            blobService.createBlockBlobFromStream(containerName, blobName, stream, streamLength, err => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('Subida de archivo exitosa');
+            });
+
+            return [file.fieldname, blobName]
+        }));
+
+        console.log(fileBlobKeys);
+
+        const today = new Date();
+
         const pool = await dataBase();
 
         // validate if user is already registered
@@ -73,26 +124,28 @@ exports.zoneLeadersCreate = async (req, res) => {
             .input("cellphone", sql.VarChar, cellphone.toString())
             .input("document_type", sql.Char, '1')
             .input("document", sql.VarChar, documentId.toString())
+            .input("email", sql.VarChar, email)
+            .input("zone_id", sql.Int, zone_id.toString())
             .input("status", sql.Bit, 1)
             .input("address", sql.VarChar, address)
-            .input("image_url", sql.VarChar, profileImage)
+            .input("created_at", sql.Date, today)
+            .input("updated_at", sql.Date, today)
             .input("seller_code", sql.VarChar, leader_code.toString())
             .input("seller_type", sql.Char, "3")
             .input("contract_expires", sql.Date, endContractDate)
-            .input("contract_image", sql.VarChar, contractDocument)
-            .input("document_image", sql.VarChar, documentPhoto)
-            .input("rut_image", sql.VarChar, rutDocument)
-            .input("email", sql.VarChar, email)
-            .input("zone_id", sql.Int, zone_id.toString())
-            .input("bank_certification", sql.VarChar, bankCertification)
-            .input("created_at", sql.Date, today)
-            .input("updated_at", sql.Date, today)
+            .input("contract_image", sql.VarChar, fileBlobKeys['contractDocument'])
+            .input("document_image", sql.VarChar, fileBlobKeys['documentPhoto'])
+            .input("rut_image", sql.VarChar, fileBlobKeys['rutDocument'])
+            .input("bank_certification", sql.VarChar, fileBlobKeys['bankCertification'])
+            .input("image_url", sql.VarChar, fileBlobKeys['profileImage'])
             .query(createNewZoneLeader);
 
         res.json(req.body);
     } catch (error) {
+        console.log(error)
         res.status(500).send(error.message)
-    } 
+    }
+    
 };
 
 exports.zoneLeaderEditById = async (req, res) => {

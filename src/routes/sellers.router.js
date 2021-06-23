@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer();
 const sellersController = require('../controllers/sellers.controller');
 const { validate, ValidationError, Joi } = require('express-validation');
 
@@ -80,7 +82,7 @@ const zoneLeaderUpdateValidation = {
 
 // zone leaders routes
 router.get('/lideres', sellersController.zoneLeadersGet);
-router.post('/lideres', validate(zoneLeaderCreationValidation, {}, {}), sellersController.zoneLeadersCreate);
+router.post('/lideres', upload.any(), validate(zoneLeaderCreationValidation, {}, {}), sellersController.zoneLeadersCreate);
 router.get('/lideres/:id', sellersController.zoneLeaderGetById);
 router.delete('/lideres/:id', sellersController.zoneLeadersDelete);
 router.put('/lideres/:id', validate(zoneLeaderUpdateValidation, {}, {}), sellersController.zoneLeaderEditById);
