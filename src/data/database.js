@@ -10,7 +10,7 @@ const dbSettings ={
          trustServerCertificate:true   
      }
  }
-const getCoonection = async () =>{
+const getConnection = async () =>{
 try {
 const pool= await sql.connect(dbSettings)
 return pool   
@@ -18,4 +18,6 @@ return pool
     console.error(error)
 }
  }
- getCoonection()
+ getConnection()
+
+ module.exports= getConnection
