@@ -2,6 +2,7 @@
 const dataBase = require('../data/database');
 const sql = require('mssql');
 const _ = require('underscore');
+const fs = require('fs');
 
 // Connection to azure blob storage
 const config = require('../config');
@@ -43,6 +44,18 @@ exports.zoneLeaderGetById = async (req, res) => {
         const result =  await pool.request()
             .input("id", sql.Int, id)
             .query(getZoneLeaderById);
+        const { image_url } = result.recordset[0];
+
+        const writeStream = fs.createWriteStream(`${image_url}.png`);
+        blobService.getBlobToLocalFile(containerName, image_url, `${image_url}.png`, (err, serverBlob) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log(serverBlob);
+            });
+
+
         res.json(result.recordset);
     } catch (error) {
         res.status(500).send(error.message);

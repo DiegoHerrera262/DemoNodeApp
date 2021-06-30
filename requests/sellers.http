@@ -2,10 +2,10 @@
 GET http://localhost:8000/lideres
 
 ### Getting leader by id
-GET http://localhost:8000/lideres/38
+GET http://localhost:8000/lideres/56
 
 ### Deleting leader by id
-DELETE http://localhost:8000/lideres/54
+DELETE http://localhost:8000/lideres/38
 
 ### Updating zone leader by id
 PUT http://localhost:8000/lideres/25
