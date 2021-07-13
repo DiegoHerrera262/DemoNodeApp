@@ -16,7 +16,7 @@ const Grocers = db.define('grocers',{
     phone : Sequalize.INTEGER,
     cellphone : Sequalize.INTEGER,
     address : Sequalize.STRING,
-    moreAddress_information : Sequalize.TEXT,
+    moreAddressInformation : Sequalize.TEXT,
     locality : Sequalize.STRING,
     neighborhood : Sequalize.STRING,
     zone : Sequalize.STRING,
