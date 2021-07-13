@@ -8,25 +8,24 @@ const Grocers = db.define('grocers',{
         primaryKey: true,
         autoIncrement: true
     },
-
-    grocer_name : Sequalize.STRING,
-    owner_name : Sequalize.STRING,
-    document_type : Sequalize.STRING,
-    document_id : Sequalize.INTEGER,
+    grocerName : Sequalize.STRING,
+    ownerName : Sequalize.STRING,
+    documentType : Sequalize.STRING,
+    documentId : Sequalize.INTEGER,
     email : Sequalize.STRING,
     phone : Sequalize.INTEGER,
     cellphone : Sequalize.INTEGER,
     address : Sequalize.STRING,
-    module : Sequalize.TEXT,
+    moreAddress_information : Sequalize.TEXT,
     locality : Sequalize.STRING,
     neighborhood : Sequalize.STRING,
-    visit_day : Sequalize.STRING,
-    business_type : Sequalize.STRING,
-    seller_id : Sequalize.INTEGER,
+    zone : Sequalize.STRING,
+    visitDay : Sequalize.STRING,
+    businessType : Sequalize.STRING,
+    sellerCreator : Sequalize.INTEGER,
+    level : Sequalize.STRING,
     latitude : Sequalize.FLOAT(11),
     longitude : Sequalize.FLOAT(11),
-    created_at : Sequalize.DATE,
-    updated_at : Sequalize.DATE
-
-
 });
+
+module.exports = Grocers;

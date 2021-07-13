@@ -14,3 +14,5 @@ try {
 }
 }
 test()
+
+module.exports = sequelize;
