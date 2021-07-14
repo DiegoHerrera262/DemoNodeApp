@@ -23,7 +23,7 @@ const Grocers = db.define('grocers',{
     documentType : {
         type : Sequalize.STRING,
         validate :{
-            notNull: true
+            allowNull: false
         }
     },
     documentId : {
