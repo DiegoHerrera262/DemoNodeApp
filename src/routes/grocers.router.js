@@ -10,8 +10,6 @@ module.exports = function(){
     // ruta para inserción de un nuevo cliente
     router.post('/grocerCreate', grocersController.grocerCreate);
 
-    
-
 
     return router;
 }

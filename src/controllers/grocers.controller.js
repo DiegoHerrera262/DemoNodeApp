@@ -1,3 +1,5 @@
+const Grocers = require('../models/Grocers');
+
 
 // Metodo de formulario para creacion de cliente
 exports.grocerForm = (req, res) => {
@@ -8,8 +10,52 @@ exports.grocerForm = (req, res) => {
 }
 
 // Metodo para incersión de cliente en db
-exports.grocerCreate = (req, res) => {
-    // Accediendo a los datos del formulario
-    
+exports.grocerCreate = async (req, res) => {
 
+
+    // Accediendo a los datos del formulario
+    const grocerName = req.body.grocerName;
+    const ownerName = req.body.ownerName;
+    const documentType = req.body.documentType;
+    const documentId = req.body.documentId;
+    const cellphone = req.body.cellphone;
+    const phone = req.body.phone;
+    const email = req.body.email;
+    const address = req.body.address;
+    const moreAddressInformation = req.body.momoreAddressInformation;
+    const neighborhood = req.body.neighborhood;
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+
+    let errors = [];
+
+    if(documentId < 99999){
+        errors.push({'text' : 'Documento inválido'})
+    }
+
+    if(errors.length > 0){
+        res.render('grocerCreate',{
+            PageName : 'Creación de cliente',
+            errors
+        })
+    } else {
+        
+        const grocer = await Grocers.create({ 
+            grocerName,
+            ownerName,
+            documentType,
+            documentId,
+            cellphone,
+            phone,
+            email,
+            address,
+            moreAddressInformation,
+            neighborhood,
+            latitude,
+            longitude
+        });
+        res.redirect('/grocerDetail')
+    }
+
+    
 }
