@@ -1,7 +1,10 @@
 
 // Metodo de formulario para creacion de cliente
 exports.grocerForm = (req, res) => {
-    res.send()
+    res.render('grocerCreate',{
+        pageName: 'Creación de cliente'
+    })
+
 }
 
 // Metodo para incersión de cliente en db

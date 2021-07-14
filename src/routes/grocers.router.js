@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 
-const grocerController = require ('../controllers/grocers.controller');
+const grocersController = require ('../controllers/grocers.controller');
 
 module.exports = function(){
     // ruta para la vista de creacion de cliente
