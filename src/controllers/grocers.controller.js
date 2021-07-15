@@ -25,6 +25,8 @@ exports.grocerCreate = async (req, res) => {
     moreAdditionalInformation,
   } = req.body;
 
+  console.log(req.body);
+
   /*
     // Accediendo a los datos del formulario
     const grocerName = req.body.grocerName;
