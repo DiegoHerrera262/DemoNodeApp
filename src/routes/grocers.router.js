@@ -1,15 +1,14 @@
-const express = require ('express');
+const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer();
 
-const grocersController = require ('../controllers/grocers.controller');
+const grocersController = require("../controllers/grocers.controller");
 
-module.exports = function(){
-    // ruta para la vista de creacion de cliente
-    router.get('/grocerCreate', grocersController.grocerForm);
+// route for creating view
+router.get("/grocer/create", grocersController.grocerForm);
 
-    // ruta para inserción de un nuevo cliente
-    router.post('/grocerCreate', grocersController.grocerCreate);
+// route for creating grocer from web app
+router.post("/grocer/create", upload.any(), grocersController.grocerCreate);
 
-
-    return router;
-}
+module.exports = router;
