@@ -1,0 +1,14 @@
+@apiProducts = http://localhost:8080/products
+
+GET {{apiProducts}}
+
+###
+POST {{apiProducts}}
+ Content-Type: application/json
+
+ {
+     "name":"sal",
+     "descriptions":"sal",
+     "code": 2343,
+     "cost": 43434.45
+ }

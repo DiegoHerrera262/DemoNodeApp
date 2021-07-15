@@ -1,26 +1,18 @@
-const sql = require('mssql');
+const {Sequelize} = require('sequelize')
+const sequelize = new Sequelize('superveci-dev', 'superveci-dev', '12345678Sv',{
+  dialect:'mssql',
+  host:'superveci-dev.database.windows.net',
+})
+    
+//test connection
+const test = async() => {
+try {
+    await sequelize.authenticate()
+    console.log('successful connection')
+} catch (error) {
+    console.log('Failed connection')
+}
+}
+test()
 
-const dbSettings ={
-     user:'superveci-dev',
-     password:'12345678Sv',
-     server:'superveci-dev.database.windows.net',
-     database:'superveci-dev',
-     options:{
-         encrypt: true,
-         trustServerCertificate:true   
-     }
- };
-
-const getConnection = async () =>{
-    try {
-        const pool= await sql.connect(dbSettings);
-        // const result = await pool.request().query('SELECT * FROM users');
-        // console.log(result);
-        return pool;
-    } catch (error) {
-        console.error(error);
-        return undefined;
-    }
- }
-
-module.exports = getConnection;
+module.exports = sequelize;

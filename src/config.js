@@ -26,4 +26,9 @@ module.exports = {
         connectionString : AZURE_STORAGE_CONNECTION_STRING,
         accountName : AZURE_ACCOUNT_NAME
     }
-};
+}
+
+
+
+
+
