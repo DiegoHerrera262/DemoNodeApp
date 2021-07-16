@@ -2,10 +2,10 @@ POST http://localhost:8000/grocer/create
 Content-Type: application/json
 
 {
-    "grocerName": "SOMe name",
-    "ownerName": "owner name",
+    "grocerName": "SOMename",
+    "ownerName": "ownername",
     "documentType": "cedula de ciudadania",
-    "documentId": 1034567898,
+    "documentId": 10323523234,
     "cellphone": 3456778990,
     "phone": 5678909,
     "email": "mail@mailk.com",
@@ -13,6 +13,6 @@ Content-Type: application/json
     "neighborhood": "Suba",
     "latitude": 4.15,
     "longitude": -7.68,
-    "sellerCreator": "Asesor Premium",
-    "moreAddtionalInformation": "En la esquina"
+    "sellerCreator": 30,
+    "addressAdditionalInfo": "En la esquina"
 }

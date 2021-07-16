@@ -22,39 +22,25 @@ exports.grocerCreate = async (req, res) => {
     latitude,
     longitude,
     sellerCreator,
-    moreAdditionalInformation,
+    addressAdditionalInfo,
   } = req.body;
 
   console.log(req.body);
 
-  /*
-    // Accediendo a los datos del formulario
-    const grocerName = req.body.grocerName;
-    const ownerName = req.body.ownerName;
-    const documentType = req.body.documentType;
-    const documentId = req.body.documentId;
-    const cellphone = req.body.cellphone;
-    const phone = req.body.phone;
-    const email = req.body.email;
-    const address = req.body.address;
-    const additionalInfo = req.body.momoreAddressInformation;
-    const neighborhood = req.body.neighborhood;
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
-    */
+
 
   let errors = [];
 
-  if (documentId < 99999) {
-    errors.push({ text: "Documento inválido" });
-  }
+  // if (documentId < 99999) {
+  //   errors.push({ text: "Documento inválido" });
+  // }
 
-  if (errors.length > 0) {
-    res.render("grocerCreate", {
-      PageName: "Creación de cliente",
-      errors,
-    });
-  } else {
+  // if (errors.length > 0) {
+  //   res.render("grocerCreate", {
+  //     PageName: "Creación de cliente",
+  //     errors,
+  //   });
+  // } else {
     const grocer = await Grocers.create({
       grocerName,
       ownerName,
@@ -64,12 +50,12 @@ exports.grocerCreate = async (req, res) => {
       phone,
       email,
       address,
-      moreAdditionalInformation,
+      addressAdditionalInfo,
       neighborhood,
       latitude,
       longitude,
       sellerCreator,
     });
-    res.redirect("/grocerDetail");
-  }
+    console.log('creado con exito');
+  // }
 };

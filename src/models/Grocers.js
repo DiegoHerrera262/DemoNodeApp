@@ -9,11 +9,9 @@ const Grocers = db.define('grocers',{
     },
     grocerName : {
         type : Sequalize.STRING,
-        default : null
     },
     ownerName : {
         type : Sequalize.STRING,
-        default : null,
         validate : {
             isAlpha : {
                 msg : 'No es un nombre válido'
@@ -22,12 +20,9 @@ const Grocers = db.define('grocers',{
     },
     documentType : {
         type : Sequalize.STRING,
-        validate :{
-            allowNull: false
-        }
     },
     documentId : {
-        type : Sequalize.INTEGER,
+        type : Sequalize.BIGINT,
         validate : {
             isDocument(value){
                 if(value <= 99999){
@@ -45,63 +40,51 @@ const Grocers = db.define('grocers',{
         }
     },
     phone : {
-        type : Sequalize.INTEGER,
-        default : null
+        type : Sequalize.BIGINT,
     },
     cellphone :{
-        type :  Sequalize.INTEGER,
+        type :  Sequalize.BIGINT,
         validate : {
             isNumeric : true,
             isCellphone(value){
                 if(2999999999 < value < 4000000000 ){
-                    throw new Error('El número de celular no es válido.');
+                    //throw new Error('El número de celular no es válido.');
                 }
             }
         }
     },
     address : {
         type : Sequalize.STRING,
-        default : null
     },
-    moreAddressInformation : {
+    addressAdditionalInfo : {
         type : Sequalize.TEXT,
-        default : null
     },
     locality : {
         type : Sequalize.STRING,
-        default : null
     },
     neighborhood : {
         type : Sequalize.STRING,
-        default : null
     },
     zone : {
         type : Sequalize.STRING,
-        default : null
     },
     visitDay : {
         type : Sequalize.STRING,
-        default : null
     },
     businessType : {
         type : Sequalize.STRING,
-        default : null
     },
     sellerCreator : {
         type : Sequalize.INTEGER,
-        default : null
     },
     level : {
         type : Sequalize.STRING,
-        default : null
     },
     latitude : {
         type : Sequalize.FLOAT(11),
-        default : null
     },
     longitude : {
         type : Sequalize.FLOAT(11),
-        default : null
     }
 });
 
