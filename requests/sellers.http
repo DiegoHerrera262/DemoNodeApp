@@ -29,22 +29,19 @@ Content-Type: application/json
 }
 
 ### Creating leader on sellers table
-POST http://localhost:8080/lideres
+POST http://localhost:8000/lideres
 Content-Type: application/json
 
 {
-    "name" : "Test",
-    "last_name": "Four",
-    "documentId": 3000000003,
-    "address": "Cra 40 #40-40",
-    "leader_code": 104,
-    "email" : "somem4@mailserv.com",
-    "cellphone": 3000000003,
-    "zone_id": 1,
-    "endContractDate": "2021-06-21",
-    "documentPhoto": "https://AmazonWEB.com/Some/Random/url",
-    "rutDocument": "https://AmazonWEB.com/Some/Random/url",
-    "contractDocument": "https://AmazonWEB.com/Some/Random/url",
-    "profileImage": "https://AmazonWEB.com/Some/Random/url",
-    "bankCertification": "https://AmazonWEB.com/Some/Random/url"
+    "name": "Test",
+    "lastName": "Two",
+    "cellphone": 3111111112,
+    "documentType": "Cédula de ciudadanía",
+    "documentId": 2000000000,
+    "status": true,
+    "address": "CRA 10 #10-10",
+    "sellerCode": 343,
+    "email": "mail2@mail.com",
+    "zoneId": 1,
+    "contractExpires": "06/06/21"
 }
