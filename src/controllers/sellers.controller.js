@@ -14,6 +14,7 @@ const containerName = "sellers";
 const getStream = require("into-stream");
 
 const Seller = require("../models/Sellers");
+const { Op } = require("sequelize");
 
 // max file size
 const MAX_SIZE = 5 * 1024 * 1024;
@@ -66,15 +67,21 @@ exports.zoneLeadersCreate = async (req, res) => {
 
     console.log(req.body);
 
-    const matches = Seller.findAll({
+    const matches = await Seller.findAll({
       where: {
-        documentId: documentId,
-        cellphone: cellphone,
-        sellerCode: sellerCode.toString(),
+        [Op.or]: [
+          { documentId: documentId },
+          { cellphone: cellphone.toString() },
+          { sellerCode: sellerCode.toString() },
+          { email: email },
+        ],
       },
     });
 
+    console.log(matches);
+
     if (matches.length > 0) {
+      console.log("Líder ya fue registrado");
       return res.status(406).send("Líder ya fue registrado");
     }
 
@@ -127,7 +134,7 @@ exports.zoneLeadersCreate = async (req, res) => {
 
     console.log(fileBlobKeys);
 
-    const leader = Seller.create({
+    const leader = await Seller.create({
       name: name,
       lastName: lastName,
       cellphone: cellphone,
@@ -149,6 +156,12 @@ exports.zoneLeadersCreate = async (req, res) => {
 
     res.send("Líder creado correctamente");
   } catch (error) {
+    if (error.errors) {
+      const { errors } = error;
+      const message = errors[0].value + " : " + errors[0].type;
+      console.log(message);
+      res.status(406).send(message);
+    }
     console.log(error.message);
     res.status(500).send(error.message);
   }
