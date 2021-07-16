@@ -12,11 +12,6 @@ const Grocers = db.define('grocers',{
     },
     ownerName : {
         type : Sequalize.STRING,
-        validate : {
-            isAlpha : {
-                msg : 'No es un nombre válido'
-            }
-        }
     },
     documentType : {
         type : Sequalize.STRING,
@@ -66,7 +61,7 @@ const Grocers = db.define('grocers',{
         type : Sequalize.STRING,
     },
     zone : {
-        type : Sequalize.STRING,
+        type : Sequalize.INTEGER,
     },
     visitDay : {
         type : Sequalize.STRING,
