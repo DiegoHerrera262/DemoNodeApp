@@ -9,6 +9,7 @@ const Grocers = db.define('grocers',{
     },
     grocerName : {
         type : Sequalize.STRING,
+        unique :  true
     },
     ownerName : {
         type : Sequalize.STRING,
@@ -18,68 +19,51 @@ const Grocers = db.define('grocers',{
     },
     documentId : {
         type : Sequalize.BIGINT,
-        validate : {
-            isDocument(value){
-                if(value <= 99999){
-                    throw new Error('El documento no es válido.');
-                }
-            }
-        }
+        unique :  true
     },
     email : {
-        type : Sequalize.STRING,
-        validate : {
-            isEmail : {
-                msg : 'No es un email válido.'
-            }
-        }
+        type : Sequalize.STRING
     },
     phone : {
         type : Sequalize.BIGINT,
     },
     cellphone :{
         type :  Sequalize.BIGINT,
-        validate : {
-            isNumeric : true,
-            isCellphone(value){
-                if(2999999999 < value < 4000000000 ){
-                    //throw new Error('El número de celular no es válido.');
-                }
-            }
-        }
+        unique :  true
     },
     address : {
         type : Sequalize.STRING,
+        unique :  true
     },
     addressAdditionalInfo : {
-        type : Sequalize.TEXT,
+        type : Sequalize.TEXT
     },
     locality : {
-        type : Sequalize.STRING,
+        type : Sequalize.STRING
     },
     neighborhood : {
-        type : Sequalize.STRING,
+        type : Sequalize.STRING
     },
     zone : {
-        type : Sequalize.INTEGER,
+        type : Sequalize.INTEGER
     },
     visitDay : {
-        type : Sequalize.STRING,
+        type : Sequalize.STRING
     },
     businessType : {
-        type : Sequalize.STRING,
+        type : Sequalize.STRING
     },
     sellerCreator : {
-        type : Sequalize.INTEGER,
+        type : Sequalize.INTEGER
     },
     level : {
-        type : Sequalize.STRING,
+        type : Sequalize.STRING
     },
     latitude : {
-        type : Sequalize.FLOAT(11),
+        type : Sequalize.FLOAT(11)
     },
     longitude : {
-        type : Sequalize.FLOAT(11),
+        type : Sequalize.FLOAT(11)
     }
 });
 
