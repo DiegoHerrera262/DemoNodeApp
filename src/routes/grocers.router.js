@@ -8,7 +8,7 @@ const grocersController = require("../controllers/grocers.controller");
 
 // route for creating grocer from web app
 router.post("/grocer/create", upload.any(), grocersController.grocerCreate);
-router.get("/grocers", grocersController.grocerGet);
+router.get("/grocers/:filter", grocersController.grocerGet);
 router.get("/grocer/:id", grocersController.grocerGetById);
 router.put("/grocer/:id", grocersController.grocerUpdate);
 router.delete("/grocer/:id", grocersController.grocerDelete);
