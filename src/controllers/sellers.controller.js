@@ -42,8 +42,41 @@ exports.zoneLeaderGetById = async (req, res) => {
         id: id,
       },
     });
-    res.json(leader);
+
+    const {
+      imageUrl,
+      contractImage,
+      documentImage,
+      bankCertification,
+      rutImage,
+    } = leader[0].dataValues;
+
+    const fileBlobs = [
+      imageUrl,
+      contractImage,
+      documentImage,
+      bankCertification,
+      rutImage,
+    ];
+
+    const fileStreams = fileBlobs.map((blob) => {
+      return blobService.createReadStream(containerName, blob);
+    });
+
+    /*
+    fileStreams.forEach((stream) => {
+      stream.pipe(res);
+    });
+    */
+
+    fileStreams[4].pipe(res);
+
+    // res.json(leader);
   } catch (error) {
+    console.log(error);
+    if (error.errors) {
+      console.log(error.errors[0]);
+    }
     res.status(500).send(error.message);
   }
 };
@@ -153,6 +186,25 @@ exports.zoneLeadersCreate = async (req, res) => {
       rutImage: fileBlobKeys["rutImage"],
       bankCertification: fileBlobKeys["bankCertification"],
     });
+
+    const [leaderCol] = await Seller.findAll({
+      where: {
+        documentId: documentId,
+      },
+    });
+
+    const id = leaderCol.id;
+
+    const leaderIdUpdate = await Seller.update(
+      {
+        leaderId: id,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
 
     res.send("Líder creado correctamente");
   } catch (error) {

@@ -89,6 +89,9 @@ const Seller = sequelize.define(
       allowNull: true,
       unique: true,
     },
+    leaderId: {
+      type: DataTypes.INTEGER,
+    },
   },
   {
     timestamps: true,
