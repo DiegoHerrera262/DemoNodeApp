@@ -1,11 +1,12 @@
 const app = require('./app');
 const config = require('./config');
 
-// Conexión a la base de datos 
+// Conection with DataBAse
 const db = require('./data/database');
 
-// Importa modelo de Clientes
+// Models imports
 require('./models/Grocers');
+require('./models/Suppliers');
 
 db.sync()
     .then(() => console.log('conectado al servidor'))

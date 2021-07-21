@@ -1,0 +1,46 @@
+### create new supplier
+POST http://localhost:8000/supplier/create
+Content-Type: application/json
+
+{
+    "name": "Proveedor 2",
+    "documentType": "NIT",
+    "documentId": 12498752452,
+    "cellphone": 3124925344,
+    "phone": 5678905,
+    "email": "supplier2@example.com",
+    "address": "CRA 25 # 16-15, Bogota, Colombia",
+    "addressAdditionalInfo": "En la esquina",
+    "neighborhood": "Suba",
+    "locality" : "Suba",
+    "city" : "Bogota",
+    "siigoId" : 1
+}
+
+### get supplier by id
+GET  http://localhost:8000/supplier/1
+
+### get all suppliers
+GET  http://localhost:8000/suppliers
+
+### create new supplier
+PUT http://localhost:8000/supplier/1
+Content-Type: application/json
+
+{
+    "name": "Proveedor 1 editado",
+    "documentType": "NIT",
+    "documentId": 12098752452,
+    "cellphone": 3124925784,
+    "phone": 5678905,
+    "email": "supplier1@editado.com",
+    "address": "CRA 25 # 16-17, Bogota, Colombia",
+    "addressAdditionalInfo": "En la esquina 2",
+    "neighborhood": "Suba",
+    "locality" : "Suba",
+    "city" : "Bogota",
+    "siigoId" : 5
+}
+
+### delete supplier
+DELETE http://localhost:8000/supplier/1
