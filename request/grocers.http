@@ -31,14 +31,14 @@ POST http://localhost:8000/grocer/create
 Content-Type: application/json
 
 {
-    "grocerName": "Prueba error",
-    "ownerName": "Prueba error",
+    "grocerName": "Prueba cinco",
+    "ownerName": "Prueba cinco",
     "documentType": "cedula de ciudadania",
-    "documentId": 1234234203,
-    "cellphone": 2999999999,
+    "documentId": 123234234203,
+    "cellphone": 3124325344,
     "phone": 5678905,
-    "email": "good@example.com",
-    "address": "CRA 45 # 15-15, Bogota, Colombia",
+    "email": "nice@example.com",
+    "address": "CRA 35 # 15-15, Bogota, Colombia",
     "neighborhood": "Suba",
     "locality" : "Suba",
     "zone" : 1,

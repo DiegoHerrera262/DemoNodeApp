@@ -134,6 +134,13 @@ const Grocers = db.define('grocers',{
     longitude : {
         type : Sequalize.FLOAT(11),
         allowNull: false,
+    },
+
+    // client statuses
+    // 0 = active client, 1 = inactive
+    status: {
+        type : Sequalize.INTEGER,
+        defaultValue: 0
     }
 });
 
