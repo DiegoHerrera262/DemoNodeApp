@@ -109,7 +109,8 @@ exports.supplierUpdate = async (req, res) => {
         addressAdditionalInfo,
         neighborhood,
         locality,
-        city
+        city,
+        status
     } = req.body;
 
 
@@ -124,7 +125,8 @@ exports.supplierUpdate = async (req, res) => {
         addressAdditionalInfo,
         neighborhood,
         locality,
-        city
+        city,
+        status
     }, {
       where: {
         id: req.params.id
