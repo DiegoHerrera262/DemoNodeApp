@@ -24,7 +24,7 @@ Content-Type: application/json
 GET  http://localhost:8000/grocer/18
 
 ### get all grocers
-GET  http://localhost:8000/grocers/{"filterId" : "1", "sellerId": "2", "zone" : "1","level": "1","dateFrom" : "2","dateTo": "2"}
+GET  http://localhost:8000/grocers/0&5&1&1&2021-07-22&2021-07-19&1
 
 ### create new grocer
 POST http://localhost:8000/grocer/create
@@ -50,3 +50,5 @@ Content-Type: application/json
 
 ### delete grocer
 DELETE http://localhost:8000/grocer/1
+### asign grocer level
+PUT http://localhost:8000/grocerLevel/18

@@ -1,4 +1,5 @@
 const Grocers = require("../models/Grocers");
+//const Orders = require("../models/Orders");
 
 
 // Method for getting grocers from DB
@@ -11,37 +12,45 @@ exports.grocerGet = async (req, res) => {
     // 2 = zone filterId  
     // 3 = level filter
     // 4 = date fitler
-    console.log(req.params.filter)
+    // 5 = status filter
+    
+    filter = req.params
+    console.log(filter.filterId);
+    filter.filterId = parseInt(filter.filterId);
 
-    filter = req.params.filter;
+    console.log(filter.filterId);
+    console.log();
 
-    console.log(filter);
-
-    if (filter.Id === 0) {
-      const grocers = await Grocers.findAll();
+    if (filter.filterId === 0) {
+      grocers = await Grocers.findAll();
     }
-    if (filter.Id === 1) {
-      const grocers = await Grocers.findAll({
-        where: {sellerCreators : filter.sellerCreatorId}
+    if (filter.filterId === 1) {
+      grocers = await Grocers.findAll({
+        where: {sellerCreator : filter.sellerCreatorId}
       });
     }
-    if (filter.Id === 2) {
-      const grocers = await Grocers.findAll({
+    if (filter.filterId === 2) {
+      grocers = await Grocers.findAll({
         where: {zone : filter.zone}
       });
     }
-    if (filter.Id === 3) {
-      const grocers = await Grocers.findAll({
+    if (filter.filterId === 3) {
+      grocers = await Grocers.findAll({
         where: {level : filter.level}
       });
     }
-    if (filter.Id === 4) {
-      const grocers = await Grocers.findAll({
+    if (filter.filterId === 4) {
+      grocers = await Grocers.findAll({
         where: {
           createdAt: {
             [Op.between]: [filter.dateFrom, filter.dateTo]
           }
         }
+      });
+    }
+    if (filter.filterId === 5) {
+      grocers = await Grocers.findAll({
+        where: {status : filter.status}
       });
     }
     res.json(grocers);
@@ -246,3 +255,67 @@ exports.grocerDelete = async (req, res) => {
 
 };
 
+exports.grocerLevel = async (req, res) => {
+  try {
+
+    const id = req.params.id;
+
+      const grocer = await Grocers.findOne({
+        where: {
+          id: id
+        }
+      });
+    endDate = new Date.today();
+    startDate = new Date.today();
+    startDate.setDate(startDate.getDate() - 30);
+
+    console.log(endDate.toFormat('YYYY-MM-DD'),startDate.toFormat('YYYY-MM-DD'));
+
+
+    res.json(grocers);
+    
+    // grocerOrders = await Orders.count({
+    //   where : {
+    //     createdAt: {
+    //       [Op.between]: [startDate, endDate]
+    //     }
+    // }
+    // });
+
+    if(grocerOrders <= 5){
+      level = 'Vecino novato'
+      await Grocers.update({
+        level
+      }, {
+        where: {
+          id: req.params.id
+        }
+      });
+    }
+    if(5 < grocerOrders < 11){
+      level = 'Vecino fiel'
+      await Grocers.update({
+        level
+      }, {
+        where: {
+          id: req.params.id
+        }
+      });
+    }
+    if(10 < grocerOrders ){
+      level = 'Vecino pro'
+      await Grocers.update({
+        level
+      }, {
+        where: {
+          id: req.params.id
+        }
+      });
+    }
+    
+  } catch (error) {
+    console.log(error);
+
+    res.status(450).send('No fue posible asignar nivel del cliente');
+  }
+}
