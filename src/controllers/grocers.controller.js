@@ -1,4 +1,5 @@
 const Grocers = require("../models/Grocers");
+const { Op } = require("sequelize");
 //const Orders = require("../models/Orders");
 
 
@@ -14,45 +15,29 @@ exports.grocerGet = async (req, res) => {
     // 4 = date fitler
     // 5 = status filter
     
-    filter = req.params
-    console.log(filter.filterId);
-    filter.filterId = parseInt(filter.filterId);
+    filter = req.query
+    console.log(filter);
 
-    console.log(filter.filterId);
-    console.log();
-
-    if (filter.filterId === 0) {
+    if (filter) {
+      if(filter.endDate && filter.startDate){
+        grocers = await Grocers.findAll({
+          where: {
+            createdAt: {
+              [Op.between]: [filter.dateFrom, filter.dateTo]
+            }
+          }
+        });
+      }
+      else{
+        grocers = await Grocers.findAll({
+          where: filter
+        });
+      }
+    }
+    else{
       grocers = await Grocers.findAll();
     }
-    if (filter.filterId === 1) {
-      grocers = await Grocers.findAll({
-        where: {sellerCreator : filter.sellerCreatorId}
-      });
-    }
-    if (filter.filterId === 2) {
-      grocers = await Grocers.findAll({
-        where: {zone : filter.zone}
-      });
-    }
-    if (filter.filterId === 3) {
-      grocers = await Grocers.findAll({
-        where: {level : filter.level}
-      });
-    }
-    if (filter.filterId === 4) {
-      grocers = await Grocers.findAll({
-        where: {
-          createdAt: {
-            [Op.between]: [filter.dateFrom, filter.dateTo]
-          }
-        }
-      });
-    }
-    if (filter.filterId === 5) {
-      grocers = await Grocers.findAll({
-        where: {status : filter.status}
-      });
-    }
+   
     res.json(grocers);
 
 
