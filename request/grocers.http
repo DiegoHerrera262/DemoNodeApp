@@ -17,8 +17,13 @@ Content-Type: application/json
 ### buscar un cliente por id
 GET  http://localhost:8000/grocer/18
 
+<<<<<<< HEAD
 ### Buscar a todos los Clientes
 GET  http://localhost:8000/grocers
+=======
+### get all grocers
+GET  http://localhost:8000/grocers/4&1&1&1&2021-07-22&2021-07-19&1
+>>>>>>> f24a9544a139fabef16077f0204b76f5273ee985
 
 ### creando nuevo cliente
 POST http://localhost:8000/grocer/create
@@ -42,5 +47,12 @@ Content-Type: application/json
     "addressAdditionalInfo": "En la esquina"
 }
 
+<<<<<<< HEAD
 ### Eliminacion de cliente
 DELETE http://localhost:8000/grocer/1
+=======
+### delete grocer
+DELETE http://localhost:8000/grocer/1
+### asign grocer level
+PUT http://localhost:8000/grocerLevel/18
+>>>>>>> f24a9544a139fabef16077f0204b76f5273ee985
