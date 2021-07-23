@@ -59,7 +59,7 @@ router.delete("/sellers/:id", sellersController.sellersDelete);
 // zone leaders routes
 router.get("/leaders", sellersController.zoneLeadersGet);
 router.post(
-  "/lideres",
+  "/leaders",
   upload.any(),
   validate(zoneLeaderCreationValidation, {}, {}),
   sellersController.zoneLeadersCreate
