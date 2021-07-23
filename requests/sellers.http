@@ -1,0 +1,47 @@
+### Getting all leaders on sellers table
+GET http://localhost:8000/lideres
+
+### Getting leader by id
+GET http://localhost:8000/lideres/2
+
+### Deleting leader by id
+DELETE http://localhost:8000/lideres/38
+
+### Updating zone leader by id
+PUT http://localhost:8000/lideres/25
+Content-Type: application/json
+
+{
+    "name" : "Test",
+    "last_name": "Four",
+    "documentId": 400000000,
+    "address": "Cra 89 #119-83",
+    "leader_code": 497,
+    "email" : "mail@mailserv.com",
+    "cellphone": 3456778901,
+    "zone_id": 2,
+    "endContractDate": "2021-06-21",
+    "documentPhoto": "https://AmazonWEB.com/Some/Random/url",
+    "rutDocument": "https://AmazonWEB.com/Some/Random/url",
+    "contractDocument": "https://AmazonWEB.com/Some/Random/url",
+    "profileImage": "https://AmazonWEB.com/Some/Random/url",
+    "bankCertification": "https://AmazonWEB.com/Some/Random/url"
+}
+
+### Creating leader on sellers table
+POST http://localhost:8000/lideres
+Content-Type: application/json
+
+{
+    "name": "Test",
+    "lastName": "Two",
+    "cellphone": 3111111112,
+    "documentType": "Cédula de ciudadanía",
+    "documentId": 2000000000,
+    "status": true,
+    "address": "CRA 10 #10-10",
+    "sellerCode": 343,
+    "email": "mail2@mail.com",
+    "zoneId": 1,
+    "contractExpires": "06/06/21"
+}

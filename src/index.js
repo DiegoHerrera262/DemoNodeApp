@@ -1,19 +1,26 @@
-const app = require('./app');
-const config = require('./config');
+const app = require("./app");
+const config = require("./config");
 
-// Conexión a la base de datos 
-const db = require('./data/database');
+const db = require("./data/database");
 
-// Importa modelo de Clientes
-require('./models/Grocers');
+require("./models/Grocers");
+require("./models/Sellers");
 
-db.sync()
-    .then(() => console.log('conectado al servidor'))
-    .catch(error => console.log(error));
+const syncTables = async () => {
+  try {
+    await db.sync();
+    console.log("Syncing tables.");
+    console.log("Successful connection.");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 const server = async () => {
-    await app.listen(config.port, () => {
-    console.log('server dashboard on port:' + config.port)
-    })
-}
-server()
+  await app.listen(config.port, () => {
+    console.log("server dashboard on port:" + config.port);
+  });
+};
+
+server();
+syncTables();
