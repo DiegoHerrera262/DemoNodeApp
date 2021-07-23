@@ -5,6 +5,7 @@ const db = require("./data/database");
 
 require("./models/Grocers");
 require("./models/Sellers");
+require("./models/Suppliers");
 
 const syncTables = async () => {
   try {

@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const productsRoutes = require("./routes/products.router");
 const grocersRoutes = require("./routes/grocers.router");
 const sellersRoutes = require("./routes/sellers.router");
+const suppliersRoutes = require("./routes/suppliers.routes");
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use(morgan("dev"));
 app.use(productsRoutes);
 app.use(grocersRoutes);
 app.use(sellersRoutes);
+app.use(suppliersRoutes);
 
 module.exports = app;
