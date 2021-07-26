@@ -8,8 +8,8 @@ const { validate, ValidationError, Joi } = require("express-validation");
 // validation schema for zone leader creation
 const zoneLeaderCreationValidation = {
   body: Joi.object({
-    name: Joi.string().regex(/^[a-zA-Z]{1,10}[\s]{0,1}[a-zA-Z]{0,10}$/),
-    lastName: Joi.string().regex(/^[a-zA-Z]{1,10}[\s]{0,1}[a-zA-Z]{0,10}$/),
+    name: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
+    lastName: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
     documentType: Joi.string(),
     documentId: Joi.number().integer().max(9999999999).min(9999999),
     address: Joi.string().regex(
@@ -31,8 +31,8 @@ const zoneLeaderCreationValidation = {
 // validation schema for zone leader edition
 const zoneLeaderUpdateValidation = {
   body: Joi.object({
-    name: Joi.string().regex(/^[a-zA-Z]{1,10}[\s]{0,1}[a-zA-Z]{0,10}$/),
-    lastName: Joi.string().regex(/^[a-zA-Z]{1,10}[\s]{0,1}[a-zA-Z]{0,10}$/),
+    name: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
+    lastName: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
     documentType: Joi.string(),
     documentId: Joi.number().integer().max(9999999999).min(9999999),
     address: Joi.string().regex(

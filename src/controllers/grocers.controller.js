@@ -71,7 +71,6 @@ exports.grocerCreate = async (req, res) => {
       neighborhood,
       locality,
       zone,
-      status,
       latitude,
       longitude,
       sellerCreator,
@@ -94,7 +93,6 @@ exports.grocerCreate = async (req, res) => {
       cellphone,
       phone,
       email,
-      status,
       address,
       addressAdditionalInfo,
       locality,
@@ -123,23 +121,23 @@ exports.grocerCreate = async (req, res) => {
     console.log(error);
     console.log(
       "Error en la creación, " +
+      error.errors[0].type +
+      ". " +
+      error.errors[0].message +
+      ' en el valor "' +
+      error.errors[0].value +
+      '"'
+    );
+    res
+      .status(450)
+      .send(
+        "Error en la creación, " +
         error.errors[0].type +
         ". " +
         error.errors[0].message +
         ' en el valor "' +
         error.errors[0].value +
         '"'
-    );
-    res
-      .status(450)
-      .send(
-        "Error en la creación, " +
-          error.errors[0].type +
-          ". " +
-          error.errors[0].message +
-          ' en el valor "' +
-          error.errors[0].value +
-          '"'
       );
   }
 };
@@ -160,9 +158,9 @@ exports.grocerUpdate = async (req, res) => {
       locality,
       zone,
       latitude,
+      status,
       longitude,
       sellerCreator,
-      status,
       addressAdditionalInfo,
     } = req.body;
 
@@ -223,17 +221,17 @@ exports.grocerUpdate = async (req, res) => {
     }
     console.log(
       "Error en la creación " +
-        error.errors[0].type +
-        " en el valor " +
-        error.errors[0].value
+      error.errors[0].type +
+      " en el valor " +
+      error.errors[0].value
     );
     res
       .status(450)
       .send(
         "Error en la creación " +
-          error.errors[0].type +
-          " en el valor " +
-          error.errors[0].value
+        error.errors[0].type +
+        " en el valor " +
+        error.errors[0].value
       );
   }
 };

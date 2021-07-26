@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const { devSQL } = require("../config");
+
 const sequelize = new Sequelize(devSQL.database, devSQL.user, devSQL.password, {
   dialect: "mssql",
   host: devSQL.server,

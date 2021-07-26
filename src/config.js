@@ -20,6 +20,7 @@ const {
 const sqlEncrypt = process.env.SQL_ENCRIPT === "true";
 
 module.exports = {
+  server: 'http://localhost:8000',
   port: PORT || 8080,
   host: HOST,
   url: HOST_URL,
