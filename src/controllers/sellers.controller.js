@@ -158,6 +158,23 @@ exports.sellersCreate = async (req, res) => {
   }
 };
 
+exports.sellersUpdateById = async (req, res) => {
+  try {
+    // console.log(req.params);
+    // console.log(req.body);
+    // console.log(req.files);
+    let updateData = req.params;
+    if (req.files.length === 0) {
+      await Seller.update(req.body, { where: { id: req.params.id } });
+      return res.json("Asesor actualizado correctamente");
+    }
+    res.json("Asesor actualizado correctamente");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+};
+
 exports.sellersDelete = async (req, res) => {
   const { id } = req.params;
   console.log("Deleting zone leader with id: ", id);
@@ -410,76 +427,13 @@ exports.zoneLeadersCreate = async (req, res) => {
   }
 };
 
-exports.zoneLeaderEditById = async (req, res) => {
-  const { id } = req.params;
-  console.log("Editing zone leader with id: ", id);
+exports.zoneLeaderUpdateById = async (req, res) => {
   try {
-    const pool = await dataBase();
-
-    const {
-      name,
-      last_name,
-      documentId,
-      address,
-      leader_code,
-      email,
-      cellphone,
-      zone_id,
-      endContractDate,
-      documentPhoto,
-      rutDocument,
-      contractDocument,
-      profileImage,
-      bankCertification,
-    } = req.body;
-
-    // validate if user is already registered
-    const prevRegisters = await pool
-      .request()
-      .input("document", sql.VarChar, documentId.toString())
-      .input("cellphone", sql.VarChar, cellphone.toString())
-      .input("seller_code", sql.VarChar, leader_code.toString())
-      .query(zoneLeaderValidationQuery);
-
-    let thereIsMatch = false;
-    for (let i = 0; i < prevRegisters.recordset.length; i++) {
-      if (prevRegisters.recordset[i]["id"] !== parseInt(id)) {
-        thereIsMatch = true;
-        break;
-      }
-    }
-
-    if (thereIsMatch) {
-      return res.status(406).send("Datos ya fueron registrados");
-    }
-
-    const today = new Date();
-
-    await pool
-      .request()
-      .input("id", sql.Int, id)
-      .input("name", sql.VarChar, name.toString())
-      .input("last_name", sql.VarChar, last_name.toString())
-      .input("cellphone", sql.VarChar, cellphone.toString())
-      .input("document_type", sql.Char, "1")
-      .input("document", sql.VarChar, documentId.toString())
-      .input("status", sql.Bit, 1)
-      .input("address", sql.VarChar, address)
-      .input("image_url", sql.VarChar, profileImage)
-      .input("seller_code", sql.VarChar, leader_code.toString())
-      .input("seller_type", sql.Char, "3")
-      .input("contract_expires", sql.Date, endContractDate)
-      .input("contract_image", sql.VarChar, contractDocument)
-      .input("document_image", sql.VarChar, documentPhoto)
-      .input("rut_image", sql.VarChar, rutDocument)
-      .input("bank_certification", sql.VarChar, bankCertification)
-      .input("email", sql.VarChar, email)
-      .input("zone_id", sql.Int, zone_id.toString())
-      .input("updated_at", sql.Date, today)
-      .query(updateZoneLeaderById);
-
-    res.json(req.body);
+    console.log(req.params);
+    console.log(req.body);
+    console.log(req.files);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error.message);
   }
 };

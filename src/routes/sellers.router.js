@@ -55,6 +55,7 @@ const zoneLeaderUpdateValidation = {
 router.get("/sellers", sellersController.sellersGet);
 router.get("/sellers/files/:id", sellersController.sellerGetFilesById);
 router.post("/sellers", upload.any(), sellersController.sellersCreate);
+router.put("/sellers/:id", upload.any(), sellersController.sellersUpdateById);
 router.delete("/sellers/:id", sellersController.sellersDelete);
 
 // zone leaders routes
@@ -68,7 +69,7 @@ router.post(
 router.put(
   "/leaders/:id",
   validate(zoneLeaderUpdateValidation, {}, {}),
-  sellersController.zoneLeaderEditById
+  sellersController.zoneLeaderUpdateById
 );
 
 // see express-validation docs
