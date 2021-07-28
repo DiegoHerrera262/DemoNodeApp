@@ -12,9 +12,7 @@ const zoneLeaderCreationValidation = {
     lastName: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
     documentType: Joi.string(),
     documentId: Joi.number().integer().max(9999999999).min(9999999),
-    address: Joi.string().regex(
-      /^[a-zA-Z]{2,4}[\s]{0,1}[a-zA-Z]{0,20}[\s]{0,1}[0-9]{0,3}[\s]{0,1}[a-zA-Z]{0,5}[\s]{0,1}#[\s]{0,1}[0-9]{1,3}[a-zA-Z]{0,3}[\s]{0,1}-[\s]{0,1}[0-9]{1,3}[a-zA-Z]{0,3},[\s]{0,3}[a-zA-Z]{1,10},[\s]{0,3}[a-zA-Z]{1,10}$/
-    ),
+    address: Joi.string().regex(/^[0-9a-zA-ZÁÉÍÓÚáéíóúñ,.#\s-]{0,100}$/),
     sellerCode: /^[A-Z]{3,4}[0-9]{3}$/,
     email: Joi.string().email(),
     cellphone: Joi.number().max(9999999999).min(999999999),
@@ -35,9 +33,7 @@ const zoneLeaderUpdateValidation = {
     lastName: Joi.string().regex(/^[a-zA-ZÁÉÍÓÚáéíóúñ\s]{1,50}$/),
     documentType: Joi.string(),
     documentId: Joi.number().integer().max(9999999999).min(9999999),
-    address: Joi.string().regex(
-      /^[a-zA-Z]{2,4}[\s]{0,1}[a-zA-Z]{0,20}[\s]{0,1}[0-9]{0,3}[\s]{0,1}#[\s]{0,1}[0-9]{1,3}[a-zA-Z]{0,3}[\s]{0,1}-[\s]{0,1}[0-9]{1,3}[a-zA-Z]{0,3}$/
-    ),
+    address: Joi.string().regex(/^[0-9a-zA-ZÁÉÍÓÚáéíóúñ,.#\s-]{0,100}$/),
     sellerCode: Joi.number().integer().max(999).min(100),
     email: Joi.string().email(),
     cellphone: Joi.number().max(9999999999).min(999999999),
@@ -68,7 +64,7 @@ router.post(
 );
 router.put(
   "/leaders/:id",
-  validate(zoneLeaderUpdateValidation, {}, {}),
+  upload.any(),
   sellersController.zoneLeaderUpdateById
 );
 
