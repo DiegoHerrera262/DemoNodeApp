@@ -53,6 +53,7 @@ const zoneLeaderUpdateValidation = {
 
 // sellers routes
 router.get("/sellers", sellersController.sellersGet);
+router.get("/sellers/files/:id", sellersController.sellerGetFilesById);
 router.post("/sellers", upload.any(), sellersController.sellersCreate);
 router.delete("/sellers/:id", sellersController.sellersDelete);
 
@@ -64,7 +65,6 @@ router.post(
   validate(zoneLeaderCreationValidation, {}, {}),
   sellersController.zoneLeadersCreate
 );
-router.get("/leaders/:id", sellersController.zoneLeaderGetById);
 router.put(
   "/leaders/:id",
   validate(zoneLeaderUpdateValidation, {}, {}),

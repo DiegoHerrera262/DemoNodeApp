@@ -26,14 +26,12 @@ exports.sellersGet = async (req, res) => {
     console.log(req.query);
     if (req.query.all) {
       leaders = await Seller.findAll();
-    } else {
-      leaders = await Seller.findAll({
-        where: {
-          sellerType: "2",
-        },
-      });
+      return res.json(leaders);
     }
-    res.json(leaders);
+    leaders = await Seller.findAll({
+      where: { ...req.query },
+    });
+    return res.json(leaders);
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -210,6 +208,33 @@ exports.sellersDelete = async (req, res) => {
   }
 };
 
+exports.sellerGetFilesById = async (req, res) => {
+  const { id } = req.params;
+  const { fileKey } = req.query;
+  // console.log(fileKey);
+  // console.log(id);
+
+  try {
+    console.log(`Trayendo ${fileKey} de asesor con id : ${id}`);
+    const [{ [fileKey]: fileBlob }] = await Seller.findAll({
+      attributes: [fileKey.toString()],
+      where: {
+        id: id,
+      },
+    });
+    const stream = blobService.createReadStream(containerName, fileBlob);
+    res.set({
+      "Content-Disposition": `${fileBlob}.pdf`,
+      "Content-Type": "application/pdf",
+    });
+    stream.pipe(res);
+    // return res.json(fileBlob);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message);
+  }
+};
+
 exports.zoneLeadersGet = async (req, res) => {
   console.log("Trayendo líderes de zona.");
   try {
@@ -235,33 +260,7 @@ exports.zoneLeaderGetById = async (req, res) => {
       },
     });
 
-    const {
-      imageUrl,
-      contractImage,
-      documentImage,
-      bankCertification,
-      rutImage,
-    } = leader[0].dataValues;
-
-    const fileBlobs = [
-      imageUrl,
-      contractImage,
-      documentImage,
-      bankCertification,
-      rutImage,
-    ];
-
-    const fileStreams = fileBlobs.map((blob) => {
-      return blobService.createReadStream(containerName, blob);
-    });
-
-    /*
-    fileStreams.forEach((stream) => {
-      stream.pipe(res);
-    });
-    */
-
-    fileStreams[4].pipe(res);
+    return leader[0].dataValues;
 
     // res.json(leader);
   } catch (error) {

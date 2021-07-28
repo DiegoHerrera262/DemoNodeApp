@@ -11,7 +11,13 @@ const suppliersRoutes = require("./routes/suppliers.routes");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(
+  cors({
+    /*origin: "http://localhost:8080",*/
+    credentials: true,
+    exposedHeaders: ["Content-Disposition"],
+  })
+);
 app.set("pkg", pkg);
 app.use(express());
 app.use(express.json());
