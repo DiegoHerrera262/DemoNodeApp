@@ -13,9 +13,9 @@ const containerName = "sellers";
 // config stream for ease of use
 const getStream = require("into-stream");
 
-const Seller = require("../models/Sellers");
+const Seller = require("../models/sellers");
 const { Op } = require("sequelize");
-const { findAll } = require("../models/Sellers");
+const { findAll } = require("../models/sellers");
 
 // max file size
 const MAX_SIZE = 5 * 1024 * 1024;
